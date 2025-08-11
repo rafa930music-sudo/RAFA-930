@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es"> 
+  
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAFA 930</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>  
+  
+  <style>
+
+      .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* tamaño máximo */
+    margin: auto;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+  }
+
+  #carousel-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    pointer-events: none; /* que no interfiera con clicks */
+  }
+    :root { 
+      --purple-neon: #a855f7;
+      --purple-dark: #7e22ce;
+      --color-light-bg: white;
+      --color-light-text: #222;
+      --color-dark-bg-start: #000000;
+      --color-dark-bg-end: #5b21b6;
+    }
+    body {
+      font-family: 'Bebas Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #000000, #5b21b6);
+      color: white;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    body.light {
+      background: white;
+      color: #222;
+    }
+
+    a:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(91, 33, 182, 0.7);
+    }
+
+    /* Neón solo para el título principal */
+   h1.text-neon {
+  color: white;
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white,
+    0 0 20px #bbb,
+    0 0 30px #aaa;
+  transition: color 0.3s ease;
+}
+
+body.light h1.text-neon {
+  color: #222; /* para que en modo claro no quede invisible */
+  text-shadow:
+    0 0 3px #aaa,
+    0 0 5px #999;
+}
+
+    /* Quitar neón en "Más Información" */
+    section#mas-info h1,
+    section#mas-info h2,
+    section#mas-info p,
+    section#mas-info a,
+    section#mas-info a:hover {
+      text-shadow: none !important;
+      color: inherit !important;
+    }
+
+    /* Redes sociales - sin neón en modo claro, y sin neón en general */
+    .redes-neon {
+      border: 2px solid var(--purple-neon);
+      box-shadow:
+        0 0 10px var(--purple-neon),
+        0 0 20px var(--purple-neon),
+        0 0 30px var(--purple-dark);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      color: white;
+    }
+    .redes-neon:hover {
+      box-shadow:
+        0 0 15px #d8b4fe,
+        0 0 30px #c084fc,
+        0 0 40px #9333ea,
+        0 0 50px #7c3aed;
+    }
+    body.light .redes-neon {
+      border-color: var(--purple-dark);
+      box-shadow: none;
+      background-color: #f0f0f0;
+      color: #222;
+    }
+    body.light .redes-neon:hover {
+      box-shadow: none;
+      background-color: #ddd;
+    }
+
+    /* Contenedor pestañas */
+    .tab-container-neon {
+      border: 3px solid var(--purple-neon);
+      border-radius: 1rem;
+      box-shadow:
+        0 0 8px var(--purple-neon),
+        0 0 20px var(--purple-dark),
+        0 0 30px var(--purple-dark);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      background-color: #4c1d95;
+      color: white;
+    }
+    body.light .tab-container-neon {
+      border-color: var(--purple-dark);
+      box-shadow: none;
+      background-color: #f5f3ff; /* morado muy claro */
+      color: #222;
+    }
+
+    /* Botón toggle modo */
+    #modeToggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--purple-dark);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow:
+        0 0 8px var(--purple-dark),
+        0 0 20px var(--purple-neon);
+      transition: background-color 0.3s ease;
+      z-index: 9999;
+    }
+    #modeToggle:hover {
+      background-color: var(--purple-neon);
+      box-shadow:
+        0 0 15px #d8b4fe,
+        0 0 30px #c084fc;
+    }
+    body.light #modeToggle {
+      background-color: var(--purple-dark);
+      color: white;
+      box-shadow:
+        0 0 6px var(--purple-dark);
+    }
+
+    /* Ajustes pestañas */
+    .tab-btn {
+      font-weight: bold;
+      color: white;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light .tab-btn {
+      color: var(--purple-dark);
+    }
+    .tab-btn[aria-selected="true"] {
+      background-color: var(--purple-dark);
+      color: white;
+      box-shadow:
+        0 0 10px var(--purple-neon);
+    }
+    body.light .tab-btn[aria-selected="true"] {
+      background-color: var(--purple-neon);
+      color: white;
+    }
+
+    .text-neon-white {
+      color: white;
+      text-shadow:
+        0 0 5px white,
+        0 0 10px white,
+        0 0 20px #bbb,
+        0 0 30px #aaa;
+    }
+    /* Tamaño del título en móvil más pequeño */
+h1.text-neon {
+  font-size: 3rem; /* base para móvil */
+}
+
+@media(min-width: 768px) {
+  h1.text-neon {
+    font-size: 6rem; /* md y más grandes */
+  }
+}
+
+/* Contenedor responsive para los videos */
+.responsive-video {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(91, 33, 182, 0.7);
+}
+
+.responsive-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Botón modo oscuro más pequeño en móvil */
+#modeToggle {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+@media(min-width: 768px) {
+  #modeToggle {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Botones de pestañas más fáciles de tocar */
+.tab-btn {
+  min-width: 4rem;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+@media(min-width: 768px) {
+  .tab-btn {
+    font-size: 1.25rem;
+  }
+}
+
+  </style> 
+<style>
+  /* Aquí tus estilos generales */
+
+  /* Ajustes para móvil */
+  @media (max-width: 640px) {
+    header {
+      height: auto;
+      min-height: 60vh;
+      max-height: 300px;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    h1.text-neon {
+      font-size: 2rem !important;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    #modeToggle {
+      top: 0.5rem !important;
+      right: 0.5rem !important;
+      padding: 0.2rem 0.5rem !important;
+      font-size: 0.75rem !important;
+    }
+
+    .flex.flex-row {
+      flex-direction: column !important;
+      gap: 1rem !important;
+      align-items: center !important;
+    }
+
+    .flex.flex-row > div {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .flex.flex-row img {
+      width: 90%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .content {
+      padding: 1rem !important;
+      text-align: center !important;
+    }
+  }
+</style>
+
+
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center gap-5 p-4 sm:p-6 md:p-8">
+<header 
+class="w-full bg-gray-900 text-white py-6 shadow-md relative overflow-hidden h-40">
+
+  <!-- Video de fondo -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute inset-0 w-full h-full object-cover"
+  >
+    <source src="276047_medium.mp4" type="video/mp4" />
+    Tu navegador no soporta el video.
+  </video>
+
+  <!-- Contenedor de texto -->
+  <div class="max-w-7xl mx-auto px-3 text-center text-4xl font-bold relative z-10 flex items-center justify-center h-full">
+    <div id="carousel-text" class="transition-opacity duration-700 opacity-100">
+      
+    </div>
+  </div>
+</header>
+
+  <!-- Botón modo oscuro/claro -->
+  <button id="modeToggle" aria-pressed="false" aria-label="Cambiar modo oscuro o claro">Modo Claro</button>
+  
+
+  <div class="flex flex-row items-center gap-6">
+    <img 
+      src="521593741_17984688833844485_1863791024957518906_n.jpg" 
+      alt="Foto de perfil de Rafa 930" 
+      class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg" 
+    />
+    <h1 class="text-6xl md:text-8xl tracking-widest drop-shadow-lg text-neon" data-text="RAFA 930" tabindex="0">
+      RAFA 930
+    </h1>
+  </div>
+  <!-- Apartado con pestañas dentro -->
+  <section id="mas-info" class="max-w-4xl mx-auto mt-12 p-6 rounded-xl shadow-lg tab-container-neon" role="region" aria-labelledby="mas-info-title">
+    <h2 id="mas-info-title" class="text-3xl mb-6 text-center font-semibold">Más Información</h2>
+
+    <!-- Botones de pestañas -->
+    <div class="flex justify-center space-x-4 mb-6" role="tablist" aria-label="Secciones de información">
+      <button 
+        class="tab-btn px-4 py-2 rounded hover:bg-purple-900" 
+        id="tab-sec1" 
+        data-tab="sec1" 
+        aria-selected="true" 
+        role="tab" 
+        aria-controls="sec1"
+        tabindex="0"
+      >
+        Biografía
+      </button>
+      <button 
+        class="tab-btn px-4 py-2 rounded hover:bg-purple-700" 
+        id="tab-sec2" 
+        data-tab="sec2" 
+        aria-selected="false" 
+        role="tab" 
+        aria-controls="sec2"
+        tabindex="-1"
+      >
+        Contacto
+      </button>
+    </div>
+
+    <!-- Contenido pestañas -->
+    <div id="sec1" class="tab-content" role="tabpanel" tabindex="0" aria-labelledby="tab-sec1">
+      <p>
+        Rafa 930 es un artista emergente español que destaca en la música urbana por su estilo auténtico y letras emotivas. Desde joven encontró su voz en el rap y el trap, lanzando exitosos singles y álbumes. Con creciente presencia en redes, combina talento y carisma, buscando expandir su carrera y llegar a escenarios internacionales.
+      </p>
+    </div>
+
+    <div id="sec2" class="tab-content hidden" role="tabpanel" tabindex="0" aria-labelledby="tab-sec2">
+  <p>
+  Para consultas profesionales o colaboraciones, puedes enviar un correo a: 
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=rafa930.music@gmail.com" target="_blank" rel="noopener noreferrer" class="underline hover:text-purple-300">
+  rafa930.music@gmail.com
+</a>
+</p>
+    </div>
+  </section>
+
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- Redes sociales (YouTube, Spotify, Instagram) -->
+    <a href="https://youtube.com/@rafa_930?si=lgAd237xkusGyzqE" target="_blank" rel="noopener noreferrer"
+   class="bg-red-600 hover:bg-red-500 text-white px-12 py-6 rounded-xl text-3xl md:text-4xl flex items-center gap-4 shadow-lg drop-shadow-xl redes-neon"
+   aria-label="YouTube">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d="M23.498 6.186a2.998 2.998 0 0 0-2.11-2.117C19.29 3.5 12 3.5 12 3.5s-7.29 0-9.388.569a2.998 2.998 0 0 0-2.11 2.117A31.39 31.39 0 0 0 0 12a31.39 31.39 0 0 0 .502 5.814 2.998 2.998 0 0 0 2.11 2.117C4.71 20.5 12 20.5 12 20.5s7.29 0 9.388-.569a2.998 2.998 0 0 0 2.11-2.117A31.39 31.39 0 0 0 24 12a31.39 31.39 0 0 0-.502-5.814zM9.75 15.02v-6.04L15.5 12l-5.75 3.02z"/>
+  </svg>
+  YouTube
+    </a>
+
+    <a href="https://open.spotify.com/intl-es/artist/2YyY3BFuxnqeYXlupNRcng?si=IVcJYczVSdyAo8y71cEBWQ" target="_blank" rel="noopener noreferrer"
+       class="bg-green-700 hover:bg-green-600 text-white px-12 py-6 rounded-xl text-3xl md:text-4xl flex items-center gap-4 shadow-lg drop-shadow-xl redes-neon" aria-label="Spotify">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 168 168" fill="currentColor" aria-hidden="true" focusable="false">
+        <path d="M84 0a84 84 0 1 0 0 168 84 84 0 0 0 0-168zm38.256 120.788a5.934 5.934 0 0 1-8.159 2.026c-22.258-13.6-50.317-16.684-83.37-9.537a5.937 5.937 0 1 1-2.649-11.527c36.488-8.399 67.325-5.035 92.04 11.182a5.935 5.935 0 0 1 2.138 7.856zm11.5-21.4a7.416 7.416 0 0 1-10.188 2.523c-25.52-15.574-64.449-20.09-94.6-11.484a7.418 7.418 0 0 1-4.427-14.05c34.227-10.795 78.12-5.716 108.565 13.04a7.418 7.418 0 0 1 1.17 11.972zm1.454-23.22c-29.167-17.21-77.735-18.764-106.824-10.726a9.108 9.108 0 0 1-5.27-17.204c33.862-10.37 87.131-8.62 120.222 12.028a9.11 9.11 0 0 1-8.128 15.902z"/>
+      </svg>
+      Spotify
+    </a>
+  </div>
+
+  <!-- Sección de Videos -->
+<section class="w-full max-w-7xl mt-16 px-4">
+
+  <h2 class="text-4xl mb-8 text-center font-semibold drop-shadow-lg">Recientes</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/9FYW3Fm87bE" title="Video 1" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/lCwhG67eijs" title="Video 2" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/xmsik3kHRSA" title="Video 3" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <h2 class="text-4xl mt-16 mb-8 text-center font-semibold drop-shadow-lg">Populares</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/NrNrBNANZH4" title="Video 7" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/5iHV8mwszZI" title="Video 8" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/pDtcFZTg9wE" title="Video 9" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <h2 class="text-4xl mt-16 mb-8 text-center font-semibold drop-shadow-lg">Más Antiguos</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/UMeQQlDoHUI" title="Video 13" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/ZPQAlHHFtik" title="Video 14" allowfullscreen></iframe>
+    </div>
+    <div class="responsive-video">
+      <iframe src="https://www.youtube.com/embed/eqGaPh3jI8Q" title="Video 15" allowfullscreen></iframe>
+    </div>
+  </div>
+
+</section>
+
+  <script>
+
+  
+    // Modo oscuro/claro con botón y persistencia localStorage
+    const modeToggle = document.getElementById('modeToggle');
+    const body = document.body;
+
+    function setMode(isLight) {
+      if (isLight) {
+        body.classList.add('light');
+        modeToggle.textContent = 'Modo Oscuro';
+        modeToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        body.classList.remove('light');
+        modeToggle.textContent = 'Modo Claro';
+        modeToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    // Cargar modo guardado o default oscuro
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode === 'false') {
+      setMode(true);
+    } else {
+      setMode(false);
+    }
+
+    modeToggle.addEventListener('click', () => {
+      const isLight = body.classList.contains('light');
+      setMode(!isLight);
+      localStorage.setItem('darkMode', !isLight ? 'false' : 'true');
+    });
+
+    // Pestañas accesibles y funcionales
+    const tabButtons = document.querySelectorAll('[role="tab"]');
+    const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => { 
+        // Desactivar todos
+        tabButtons.forEach(b => {
+          b.setAttribute('aria-selected', 'false');
+          b.setAttribute('tabindex', '-1');
+        });
+        tabPanels.forEach(p => p.classList.add('hidden'));
+
+        // Activar seleccionado
+        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        panel.classList.remove('hidden');
+        panel.focus();
+      });
+
+      // Navegación con teclado
+      btn.addEventListener('keydown', e => {
+        const index = Array.from(tabButtons).indexOf(e.target);
+        let nextIndex = null;
+        if (e.key === 'ArrowRight') nextIndex = (index + 1) % tabButtons.length;
+        if (e.key === 'ArrowLeft') nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+        if (nextIndex !== null) {
+          tabButtons[nextIndex].focus();
+          tabButtons[nextIndex].click();
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
+  
+  <script>
+  const frases = [
+    "Rafa 930",
+    "Música Urbana",
+    "Rap y Trap",
+    "Artista Emergente",
+    "LA MINA",
+    "930",
+  ];
+  let i = 0;
+  const texto = document.getElementById("carousel-text");
+
+  setInterval(() => {
+    texto.classList.add("fade-out");
+    setTimeout(() => {
+      i = (i + 1) % frases.length;
+      texto.textContent = frases[i];
+      texto.setAttribute("data-text", frases[i]);
+      texto.classList.remove("fade-out");
+    }, 600);
+  }, 3000);
+</script>
+<script>
+  // Aquí va tu código JavaScript
+  const tabButtons = document.querySelectorAll('[role="tab"]');
+  const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Desactivar todos
+      tabButtons.forEach(b => {
+        b.setAttribute('aria-selected', 'false');
+        b.setAttribute('tabindex', '-1');
+      });
+      tabPanels.forEach(p => p.classList.add('hidden'));
+
+      // Activar seleccionado
+      btn.setAttribute('aria-selected', 'true');
+      btn.setAttribute('tabindex', '0');
+      document.getElementById(btn.getAttribute('aria-controls')).classList.remove('hidden');
+      btn.focus();
+    });
+
+    // Soporte para navegación con teclado (flechas)
+    btn.addEventListener('keydown', e => {
+      let index = Array.from(tabButtons).indexOf(e.target);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        let nextIndex = (index + 1) % tabButtons.length;
+        tabButtons[nextIndex].click();
+        tabButtons[nextIndex].focus();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        let prevIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+        tabButtons[prevIndex].click();
+        tabButtons[prevIndex].focus();
+      }
+    });
+
+  });
+  tabButtons.forEach((btn, i) => {
+  btn.addEventListener('keydown', e => {
+    let newIndex;
+    if (e.key === 'ArrowRight') {
+      newIndex = (i + 1) % tabButtons.length;
+      tabButtons[newIndex].focus();
+    } else if (e.key === 'ArrowLeft') {
+      newIndex = (i - 1 + tabButtons.length) % tabButtons.length;
+      tabButtons[newIndex].focus();
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
